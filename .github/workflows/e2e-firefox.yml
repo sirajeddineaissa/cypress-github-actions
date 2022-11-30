@@ -3,9 +3,6 @@ on: [push]
 jobs:
   cypress-run:
     runs-on: ubuntu-20.04
-    strategy:
-      matrix:
-        node: [14,16,18]
     container:
       image: cypress/browsers:node16.17.1-chrome105-ff104-edge
       options: --user 1001 
@@ -14,7 +11,15 @@ jobs:
         uses: actions/checkout@v2
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - run: node -v
+
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
           browser: firefox
+          
