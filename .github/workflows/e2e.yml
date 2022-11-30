@@ -5,6 +5,7 @@ jobs:
     runs-on: ubuntu-20.04
     container:
       image: cypress/browsers:node16.17.1-chrome105-ff104-edge
+      options: --user 1001 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
