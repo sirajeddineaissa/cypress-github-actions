@@ -1,10 +1,10 @@
-name: End-to-end tests
+name: End-to-end tests with Docker image on Chrome 
 on: [push]
 jobs:
   cypress-run:
     runs-on: ubuntu-20.04
     container:
-      image: cypress/browsers:node16.17.1-chrome105-ff104-edge
+      image: cypress/browsers:node16.18.0-chrome90-ff88
       options: --user 1001 
     steps:
       - name: Checkout
