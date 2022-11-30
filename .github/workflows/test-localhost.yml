@@ -16,6 +16,6 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           browser: firefox
-          start: yarn dev
+          start: yarn dev --port 3000
           wait-on: 'http://localhost:3000'
           
