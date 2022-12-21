@@ -20,7 +20,7 @@ jobs:
   cypress-run-docker-node-16-18-0:
     runs-on: ubuntu-20.04
     container:
-      image: sirajeddineaissa/cypress-included-v9.2.0
+      image: sirajeddineaissa/cypress-included-v9.2.0:1.0.0
       options: --user 1001
     steps:
       - name: Checkout
