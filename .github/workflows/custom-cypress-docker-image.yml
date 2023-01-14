@@ -1,0 +1,27 @@
+name: End-to-end tests with Docker image on Chrome
+on:
+  push:
+    branches:
+      - "*test*"
+
+jobs:
+  # If you want to know how you can tweak an existing Docker image and push it using a GitHub Actions pipeline and a Makefile, check my other GitHub repository here : https://github.com/sirajeddineaissa/docker-makefile-test
+  # In my case, since Cypress doesn't offer docker images with Node 19 out of the box, I decided to tweak one of their existing images.
+  cypress-custom-docker-node19:
+    runs-on: ubuntu-20.04
+    container:
+      image: sirajeddineaissa/cypress
+      options: --user 1001
+    strategy:
+      matrix:
+        browser: [chrome, firefox]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install dependencies, cache them and run all Cypress tests
+        uses: cypress-io/github-action@v4
+        with:
+          browser: ${{matrix.browser}}
+          start: yarn dev --port 3000
+          wait-on: "http://localhost:3000"
