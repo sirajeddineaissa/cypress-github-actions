@@ -1,44 +1,49 @@
 name: End-to-end tests with Docker image on Chrome
 on: [push]
 jobs:
-  cypress-run-docker-node-14:
+  cypress-docker-node-14-19-0:
     runs-on: ubuntu-20.04
     container:
-      image: cypress/browsers:node14.17.6-chrome100-ff98
-      options: --user 1001
+      image: cypress/browsers:node14.19.0-chrome100-ff99-edge # Cypress Docker image with pre-installed Chrome and Firefox
+      options: --user 1001 # options: --user 1001 # Apparently the home directory in the Cypress images is owned by the user of ID 1001. This sets the job to run with that ID.
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install dependencies, cache them and run all Cypress tests
         uses: cypress-io/github-action@v4
         with:
           browser: chrome
+          start: yarn dev --port 3000
+          wait-on: "http://localhost:3000"
 
-  cypress-run-docker-node-16:
+  cypress-docker-node-16-18-0:
     runs-on: ubuntu-20.04
     container:
       image: cypress/browsers:node16.18.0-chrome90-ff88
       options: --user 1001
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-
+        uses: actions/checkout@v3
       - name: Install dependencies, cache them and run all Cypress tests
         uses: cypress-io/github-action@v4
         with:
           browser: chrome
+          start: yarn dev --port 3000
+          wait-on: "http://localhost:3000"
 
-  cypress-run-docker-node18:
+  cypress-docker-node18-12-0:
     runs-on: ubuntu-20.04
     container:
       image: cypress/browsers:node18.12.0-chrome103-ff107
       options: --user 1001
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install dependencies, cache them and run all Cypress tests
         uses: cypress-io/github-action@v4
         with:
           browser: chrome
+          start: yarn dev --port 3000
+          wait-on: "http://localhost:3000"
